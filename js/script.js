@@ -54,10 +54,23 @@ employeeForm.addEventListener('submit', (e) => {
 
     // SET FOCUS BACK TO THE ID TEXT BOX
     $('id').focus()
-    
+
     // INCREMENENT THE NUMBER OF EMPLOYEES IN THE TABLE
     employeeCount ++
     employeeNum.textContent = `(${employeeCount})`
 })
 
 // DELETE EMPLOYEE
+employeeTable.addEventListener('click', (e) => {
+    // CHECK AND SEE IF THE DELETE BUTTON WAS CLICKED
+    if (!isNaN(e.target.parentElement.parentElement.rowIndex)) {
+        // ASK THE USER FOR CONFIRMATION
+        if (confirm(`Are you sure you want to delete employee "${e.target.parentElement.parentElement.children[1].firstChild.nodeValue}" record?`)) {
+            // REMOVE THE SELECTED ROW
+            employeeTable.deleteRow(e.target.parentElement.parentElement.rowIndex)
+            // UPDATE THE NUMBER OF EMPLOYEES IN THE TABLE
+            employeeCount --
+            employeeNum.textContent = `(${employeeCount})`
+        }
+    }
+})
